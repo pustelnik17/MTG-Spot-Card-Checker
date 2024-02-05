@@ -2,10 +2,12 @@ import CardManager
 import customtkinter as gui
 from PIL import Image
 import re
+import os
+import sys
 
 def Load():
     global text
-    with open("data.txt", mode="r") as file:
+    with open(ResourcePath("data.txt"), mode="r") as file:
         for element in file.readlines():
             inputText.insert('end', element)
         priceText.insert('end', "50")
@@ -28,8 +30,16 @@ def Search():
     myTab.set("Output")
 
 def Save():
-    with open("data.txt", mode="w") as file:
+    with open(ResourcePath("data.txt"), mode="w") as file:
         file.write(inputText.get(0.0, "end"))
+
+def ResourcePath(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 gui.set_appearance_mode("dark")
 gui.set_default_color_theme("dark-blue")
@@ -38,8 +48,8 @@ root = gui.CTk()
 root.geometry("400x1000+0+0")
 root.title("MTG Spot Card Checker")
 
-searchImage = gui.CTkImage(Image.open("resources/search.ico").resize((20, 20)))
-saveImage = gui.CTkImage(Image.open("resources/save.ico").resize((20, 20)))
+searchImage = gui.CTkImage(Image.open(ResourcePath("search.ico")).resize((20, 20)))
+saveImage = gui.CTkImage(Image.open(ResourcePath("save.ico")).resize((20, 20)))
 
 
 buttonFrame = gui.CTkFrame(root)
