@@ -1,5 +1,4 @@
 from urllib.parse import quote
-import re
 import httpx
 import asyncio
 import json
