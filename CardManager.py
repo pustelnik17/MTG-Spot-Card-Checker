@@ -23,6 +23,6 @@ class Data:
             prices = []
             for offerId in range(len(card["data"])):
                 if card["data"][offerId]["stock"] > 0 and card["data"][offerId]["rarity"] != "Tip Card" and float(card["data"][offerId]["price"]) <= self.upperBound:
-                    prices.append(card["data"][offerId]["price"])
+                    prices.append(float(card["data"][offerId]["price"]))
             result.append(min(prices) if len(prices) > 0 else -1)
         return [{"name": self.cards[i], "cost": result[i]} for i in range(len(self.cards))]
